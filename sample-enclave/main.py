@@ -1,7 +1,7 @@
 import sys
 from binascii import unhexlify
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
     print("usage: <addr> <message>")
     sys.exit(1)
 

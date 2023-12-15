@@ -5,6 +5,7 @@ import sys
 import json
 import base64
 
+
 RA_CLIENT_SPID = os.environ['RA_CLIENT_SPID']
 RA_API_KEY = os.environ['RA_API_KEY']
 
@@ -13,10 +14,17 @@ if not RA_API_KEY:
     sys.exit(1)
 
 if len(sys.argv) < 2:
-    print("usage: <addr> <message>")
+    print("usage: <addr>")
     sys.exit(1)
 
-cmd = f'gramine-sgx python main.py {sys.argv[1]} "{sys.argv[2]}"'
+
+def get_proc():
+    for line in open('/proc/cpuinfo').readlines():
+        if line.startswith('model name'):
+            return line.split(':')[-1].strip()[-44:]
+
+proc = get_proc()
+cmd = f'gramine-sgx python main.py {sys.argv[1]} "{proc}"'
 print(cmd)
 
 quote = subprocess.check_output(cmd, shell=True)
