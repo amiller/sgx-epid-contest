@@ -14,7 +14,7 @@ Although some of these efforts focus on EPID, we know that EPID will be [depreca
 
 So to send it on its way, we're going to do something fun and totally new... the first ever TEE-based on-chain contest! First person to interact with the contract using a different family of SGX-enabled processors gets to win a share of a prize pool. You also get to sign the logbook, leaving a description of your CPU type by default.
 
-For a leaderboard, see the logs of the contract deployed on Sepolia. https://sepolia.etherscan.io/address/0x3fc636bd2508e664632249b4ba7bc733586459bd#events
+The contest contract is deployed on Optimism: https://optimistic.etherscan.io/address/0x490A428b0301D61DB6eD45eddc55d615F2EA9F75
 
 **First: what’s an attestation?** It’s generated from a trusted execution environment (TEE) like Intel SGX. It is kind of like a signature. It works like this: an application can specify a message (a user report data) and request an attestation. The resulting attestation is basically like a signature over BOTH the message AND the program binary of the enclave that created it. You can verify the signature against Intel’s public key. Cool. 
 
@@ -29,10 +29,12 @@ Gramine has a nice description of the issue: https://gramine.readthedocs.io/en/s
 **Why did they do it this way?** It’s hard to explain to be honest, but it makes a lot more sense if you remember that SGX was originally designed with DRM on consumer devices (like bluray players on your laptop) and application developers had weak infrastructure. Of course now the app developers and clouds are providing infrastructure, Intel just doesn’t need to be in the middle. 
 
 **So here are the rules of the contest:**
-- There are 100 shares available to win. Initially all are unassigned.
-- Donations to the prize pool can be added at any time. Each share is entitled to 1/100 of the total pool.
+- There are 20 shares available to win. Initially all are unassigned.
+- Donations to the prize pool can be added at any time. Each share is entitled to 1/20 of the total pool.
 - Whoever is the first to register with the contract for a given EPID Group ID wins at least 1 of the remaining shares (if any remain), and gets to post a message (just 44 bytes, since it has to fit in the fucking user report data next to an address).
-- Each week that goes by since the last claim, we add 1 share to a bonus pool, all of which goes to the next person to register and win.
+- Each 2 weeks that go by since the last claim, we add 1 share to a bonus pool, all of which goes to the next person to register and win.
+
+* **WARNING**: This contract has not been audited at all. Maybe it doesn't work. Contribute to the prize pool at your own risk.*
 
 **How can I check my existing processor to see if my group ID is unclaimed?**
 First to see if your processor is SGX compatible, you can [look it up in the catalog](https://ark.intel.com/content/www/us/en/ark.html#@Processors).
@@ -45,7 +47,7 @@ To actually generate an attestation and see your Group ID, we provide a sample e
 **How does the smart contract contest work?**
 The prize system is implemented in Solidity.
 
-Since we just want to see the Group ID, we don’t check anything about the attestation, not even the `mrenclave`. Even `GROUP_OUT_OF_DATE` is considered OK (this is what it shows if you haven't upgraded your BIOS and are still vulnerable to prior problems). We use the 64-byte user report data field to determine where the reward gose and to sign the logbook. 
+Since we just want to see the Group ID, we don’t check anything about the attestation, not even the `mrenclave`. Even `GROUP_OUT_OF_DATE` is considered OK (this is what it shows if you haven't upgraded your BIOS and are still vulnerable to prior problems). We use the 64-byte user report data field to determine where the reward goes and to sign the logbook.
 
 **Now I really want to take this contest seriously, how do I know what processors to hunt for?**
 Dunno. Here are a few possible strategies we thought of, maybe chat gpt will help you think of more:
@@ -54,15 +56,12 @@ Dunno. Here are a few possible strategies we thought of, maybe chat gpt will hel
 - Lie about your processor type when you sign the logbook? 
 - Maybe you already ran an SGX sample application on an old machine? If so you could probably claim one prize, then update your BIOS, then claim it again!!
 - Wait for the next TCB Recovery. If we have one before EOL, where you can be the first to claim the new group ID for your processor family
-- Maybe you can grief the contract using historical SGX attestations found online? It’s unlikely you’d be able to control the address 
+- Maybe you can grief the contract using historical SGX attestations found online? It looks like RAVE [doesn't check expiry time yet](https://github.com/PufferFinance/rave/blob/84f3e6f/src/X509Verifier.sol#L149)
 
-
-
-## Usage
-
-### Build
-
+To test the contracts:
 ```shell
 $  forge build
 $  forge test
 ```
+
+Authors: @amiller and @riderfighter

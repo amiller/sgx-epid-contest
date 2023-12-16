@@ -36,16 +36,16 @@ contract EpidContestTest is Test, EpidContest {
 	address a = address(0x9113B0bE77ed5d0D68680ec77206B8d587eD4067);
 	assertEq(winners["B00C0000"], a);
 	
-	// We should have won 10 eth now
+	// We should have won 50 eth now
 	console.logUint(a.balance);
-	assertEq(balance(a), 10 ether);
+	assertEq(balance(a), 50 ether);
 	assertEq(tickets_remaining, MAXTICKETS-1);
 
 	// Check withdrawal
 	vm.prank(a);
 	this.withdraw();
 	assertEq(balance(a), 0);
-	assertEq(a.balance, 10 ether);
+	assertEq(a.balance, 50 ether);
 
 	// Advance the time a week to see increased bonus
 	assertEq(currentBonus(), 0);
@@ -53,12 +53,12 @@ contract EpidContestTest is Test, EpidContest {
 	vm.warp(block.timestamp + 1 days);
 	assertEq(currentBonus(), 0);
 	
-	vm.warp(block.timestamp + 1 weeks);
+	vm.warp(block.timestamp + 2 weeks);
 	assertEq(currentBonus(), 1);
 	
 	// Adding to the prize pool increases balance for everyone
 	this.donate{value:2000 ether}();
-	assertEq(balance(a), 20 ether);
+	assertEq(balance(a), 100 ether);
     }
     
 }

@@ -57,8 +57,8 @@ contract EpidContest is JSONBuilder2, RAVE {
 	prizepool += msg.value;
     }
 
-    // The prize pool is rewarded divided among 100 winning tickets
-    uint public constant MAXTICKETS = 100;
+    // The prize pool is rewarded divided among 20 winning tickets
+    uint public constant MAXTICKETS = 20;
     uint public tickets_remaining = MAXTICKETS;
 
     // How much has each winner already withdrawn?
@@ -92,8 +92,8 @@ contract EpidContest is JSONBuilder2, RAVE {
 	return logbook[gid];
     }
     
-    // For the bonus incentive feature: give a little extra if a week has elapsed
-    uint constant public BONUS_TIME = 1 weeks;
+    // For the bonus incentive feature: give a little extra if two weeks have elapsed
+    uint constant public BONUS_TIME = 2 weeks;
     uint public lastClaimed;
     
     function currentBonus() public view returns(uint) {
