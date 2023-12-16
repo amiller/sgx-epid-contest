@@ -65,3 +65,5 @@ $  forge test
 ```
 
 Authors: @amiller and @riderfighter
+
+We thank [MASK Network](https://mask.io/) for a grant to make this open source project possible.
