@@ -53,7 +53,7 @@ Since we just want to see the Group ID, we don’t check anything about the atte
 Dunno. Here are a few possible strategies we thought of, maybe chat gpt will help you think of more:
 - Find random old laptops and see if you can get ‘is-sgx-available’ to say ok.
 - Maybe you are the first person to try it on Azure or OVH
-- Lie about your processor type when you sign the logbook? 
+- Lie about your processor type when you sign the logbook to confuse others
 - Maybe you already ran an SGX sample application on an old machine? If so you could probably claim one prize, then update your BIOS, then claim it again!!
 - Wait for the next TCB Recovery. If we have one before EOL, where you can be the first to claim the new group ID for your processor family
 - Maybe you can grief the contract using historical SGX attestations found online? It looks like RAVE [doesn't check expiry time yet](https://github.com/PufferFinance/rave/blob/84f3e6f/src/X509Verifier.sol#L149)
