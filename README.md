@@ -34,7 +34,7 @@ Gramine has a nice description of the issue: https://gramine.readthedocs.io/en/s
 - Whoever is the first to register with the contract for a given EPID Group ID wins at least 1 of the remaining shares (if any remain), and gets to post a message (just 44 bytes, since it has to fit in the fucking user report data next to an address).
 - Each 2 weeks that go by since the last claim, we add 1 share to a bonus pool, all of which goes to the next person to register and win.
 
-* **WARNING**: This contract has not been audited at all. Maybe it doesn't work. Contribute to the prize pool at your own risk.*
+**WARNING**: This contract has ~~not been audited at all. Maybe it doesn't work.~~ been audited and found to have a rather boring griefing attack. ~~Contribute to the prize pool at your own risk.*~~ No further donations to the prize pool are recommended!
 
 **How can I check my existing processor to see if my group ID is unclaimed?**
 First to see if your processor is SGX compatible, you can [look it up in the catalog](https://ark.intel.com/content/www/us/en/ark.html#@Processors).
