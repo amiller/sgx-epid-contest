@@ -6,7 +6,6 @@ import json
 import base64
 
 
-RA_CLIENT_SPID = os.environ['RA_CLIENT_SPID']
 RA_API_KEY = os.environ['RA_API_KEY']
 
 if not RA_API_KEY:
@@ -34,7 +33,7 @@ with open('./testquote','wb') as fp:
     fp.write(quote)
     fp.flush()
 
-cmd = f'gramine-sgx-ias-request report -g {RA_CLIENT_SPID} -k {RA_API_KEY} -q {fpname} -r ./datareport -s ./datareportsig'
+cmd = f'gramine-sgx-ias-request report -k {RA_API_KEY} -q {fpname} -r ./datareport -s ./datareportsig'
 out = subprocess.check_output(cmd, shell=True)
 
 datareport = open('./datareport').read()

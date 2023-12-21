@@ -42,7 +42,7 @@ You may also need to enable SGX in your BIOS, and it’s not supported by all ch
 
 If you can run `is-sgx-available` and you see `SGX1: ... true` and `AESMD installed: OK`, then SGX is going to work. For Windows I don’t know how to help you, just wipe it and install gnu slash linux.
 
-To actually generate an attestation and see your Group ID, we provide a sample enclave that you can run with Gramine. (See the ./sample-enclave directory). Regardless, you need to follow some of the setup instructions from Gramine outside of docker, like installing the SGX device driver and kernel module on the host machine.
+To actually generate an attestation and see your Group ID, we provide a sample enclave that you can run with Gramine. (See the [./sample-enclave](./sample-enclave) directory). Regardless, you need to follow some of the setup instructions from Gramine outside of docker, like installing the SGX device driver and kernel module on the host machine.
 
 **How does the smart contract contest work?**
 The prize system is implemented in Solidity.
@@ -67,3 +67,4 @@ $  forge test
 Authors: @amiller and @riderfighter
 
 We thank [MASK Network](https://mask.io/) for a grant to make this open source project possible.
+
