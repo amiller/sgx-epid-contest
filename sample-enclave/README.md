@@ -13,3 +13,15 @@ make PYTHON=python3.11 SGX=1 RA_TYPE=epid RA_CLIENT_SPID=XXX RA_CLIENT_LINKABLE=
 RA_API_KEY=xxx python3 scripts/make_attestation.py 0xdeadbeef
 ```
 
+### Docker
+
+```shell
+docker build -t sample
+```
+
+```shell
+docker run -it --device /dev/sgx_enclave \
+  -v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
+  -v ./data:/workdir/data \
+  sample "python3 make_attestation.py {YOUR_ADDR}"
+```
